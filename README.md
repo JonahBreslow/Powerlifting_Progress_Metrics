@@ -1,4 +1,4 @@
-# Powerlifting_Progress_Metrics
+# Powerlifting Progress Metrics
 
 ## Purpose
 Right now this is a project in development. I am going to create a tool to evaluate the effects diet and training stimulus have on my one-rep max (or estimated one-rep max by proxy). I am currently tracking daily calories, fat, carbohydrate, and protein intake using [MyFitnessPal](https://www.myfitnesspal.com/). Additionally, I am (currently) following the [Barbell Medicine](https://www.barbellmedicine.com/) Powerbuilding I template. Using this template, I track my volume (reps x sets), my tonnage (reps x sets x weight), my intensity as measured by RPE, and my estimated one-rep max. I am currently collecting data and will be experimenting with developing a shiny app that can help me determine what my one-rep max strength is most sensitve to. 
