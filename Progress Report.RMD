@@ -1,0 +1,109 @@
+---
+title: "Training Progress"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(lubridate)
+library(shiny)
+library(shinythemes)
+library(ggrepel)
+library(scales)
+
+
+Nutrition <- read_csv('NutritionData_2020.csv') %>%
+  mutate(Date = as_date(Date)) %>%
+  mutate(WEEK_OF = floor_date(Date, "week")) %>%
+  filter(!is.na(Calories))
+
+NutritionSelector <- Nutrition %>%
+  select(Calories, Carbohydrates, Fat, Protein, Sugar)
+
+WorkUnits <- read_csv('WeeklyArbitraryWorkUnits.csv') %>%
+  mutate(WEEK_OF = as_date(WEEK_OF, format = '%m/%d/%y'))
+
+WeeklyE1RM <- read_csv('WeeklyE1RMs.csv') %>%
+  mutate(WEEK_OF = as_date(WEEK_OF))%>%
+  mutate(REPS = as.numeric(str_extract(REPS, '\\d+')),
+         AVERAGE_INTENSITY = as.numeric(str_extract(`AVERAGE INTENSITY`, '\\d+'))/100,
+         ESTIMATED_1RM = as.numeric(`ESTIMATED ONE-REP MAX`))%>%
+  rename(BLOCK = Block) %>%
+  select(-`AVERAGE INTENSITY`, -`ESTIMATED ONE-REP MAX`)
+```
+
+```{r}
+# Define UI for app that draws a histogram ----
+ui <- fluidPage(theme = shinytheme("slate"),
+
+  # App title ----
+  titlePanel("Progress Tracker"),
+
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+
+    # Sidebar panel for inputs ----
+    sidebarPanel(
+
+      # Input: Slider for the number of bins ----
+      varSelectInput(inputId = "Macro",
+                  label = "Select a Macro:",
+                  data = NutritionSelector,
+                  selected = 'Calories')
+
+    ),
+
+    # Main panel for displaying outputs ----
+    mainPanel(
+
+      # Output: Histogram ----
+      plotOutput(outputId = "CaloriePlot")
+
+    )
+  )
+)
+```
+
+```{r}
+# Define server logic required to draw a histogram ----
+server <- function(input, output) {
+
+  
+  output$CaloriePlot <- renderPlot({
+
+    ggplot(data = Nutrition, aes(x = Date, y=!!input$Macro, label=(!!input$Macro))) +
+      geom_line() +
+      geom_line(aes(y=Weight)) +
+      geom_text_repel(point.padding = .25, min.segment.length = 1, direction = "y") +
+      theme_minimal() +
+      theme(
+        # text = element_text(family = "Georgia"),
+        plot.title = element_text(hjust = 0.5),
+        panel.grid = element_blank(),
+        axis.line = element_line(color = "black", size = 0.2),
+        # axis.line.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.y = element_blank(),
+        legend.position = "none"
+        # ,axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.3),
+        
+    )
+
+
+    })
+
+}
+```
+
+```{r}
+shinyApp(ui, server)
+```
+
+ 
