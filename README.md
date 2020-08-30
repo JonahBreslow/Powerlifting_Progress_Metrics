@@ -9,9 +9,9 @@ Right now this is a project in development. I am going to create a tool to evalu
 + You need to use Python 3.7 or later or else the MyFitnessPal
 API will not work.
 + I employed a virtual environment for pytho3.8. All necessary packages are in requirements.txt file. Please create and activate a virtual environment on your machine then run 
-```R
-python3 -m venv venv/
-source venv/bin/activate
+```shell
+python3 -m venv virtualenv/
+source virtualenv/bin/activate
 pip install -r requirements.txt
 ```
 + I use R version 3.4.3 for the shiny development
