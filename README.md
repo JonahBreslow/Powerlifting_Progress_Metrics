@@ -8,9 +8,9 @@ Right now this is a project in development. I am going to create a tool to evalu
 + Track training metrics (volume, tonnage, frequency, RPE, E1RM)
 + You need to use Python 3.7 or later or else the MyFitnessPal
 API will not work.
-+ I employed a virtual environment for pytho3.8. All necessary packages are in requirements.txt file. Please create and activate a virtual environment on your machine then run 
++ I employed a virtual environment for python3.8. All necessary packages are in requirements.txt file. Please create and activate a virtual environment on your machine then run 
 ```shell
-python3 -m venv virtualenv/
+python3.8 -m venv virtualenv/
 source virtualenv/bin/activate
 pip install -r requirements.txt
 ```
