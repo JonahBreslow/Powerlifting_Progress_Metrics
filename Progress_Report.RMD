@@ -19,7 +19,7 @@ library(ggrepel)
 library(scales)
 
 
-Nutrition <- read_csv('healthData_2020.csv') %>%
+Nutrition <- read_csv('Data/healthData_2020.csv') %>%
   mutate(Date = as_date(Date)) %>%
   mutate(WEEK_OF = floor_date(Date, "week")) %>%
   filter(!is.na(Calories))
@@ -27,10 +27,10 @@ Nutrition <- read_csv('healthData_2020.csv') %>%
 NutritionSelector <- Nutrition %>%
   select(Calories, Carbohydrates, Fat, Protein, Sugar)
 
-WorkUnits <- read_csv('WeeklyArbitraryWorkUnits.csv') %>%
+WorkUnits <- read_csv('Data/WeeklyArbitraryWorkUnits.csv') %>%
   mutate(WEEK_OF = as_date(WEEK_OF, format = '%m/%d/%y'))
 
-WeeklyE1RM <- read_csv('WeeklyE1RMs.csv') %>%
+WeeklyE1RM <- read_csv('Data/WeeklyE1RMs.csv') %>%
   mutate(WEEK_OF = as_date(WEEK_OF))%>%
   mutate(REPS = as.numeric(str_extract(REPS, '\\d+')),
          AVERAGE_INTENSITY = as.numeric(str_extract(`AVERAGE INTENSITY`, '\\d+'))/100,
