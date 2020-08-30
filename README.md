@@ -6,5 +6,11 @@ Right now this is a project in development. I am going to create a tool to evalu
 ## Requirements
 + Track calories and macros using [MyFitnessPal](https://www.myfitnesspal.com/)
 + Track training metrics (volume, tonnage, frequency, RPE, E1RM)
-+ You need to use Python 3.7 or later or else the MyFitnessPal API will not work
++ You need to use Python 3.7 or later or else the MyFitnessPal API will not work.
++ I employed a virtual environment for pytho3.8. All necessary packages are in requirements.txt file. Please create and activate a virtual environment on your machine then run 
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
 + I use R version 3.4.3 for the shiny development
